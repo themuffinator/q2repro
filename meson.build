@@ -1,4 +1,4 @@
-project('q2repro', 'c',
+project('worr', 'c',
   license: 'GPL-2.0-or-later',
   version: run_command(find_program('python3'), 'version.py', check: true).stdout().strip(),
   meson_version: '>= 0.60.0',
@@ -559,13 +559,13 @@ endif
 
 if get_option('client-ui')
 
-  # embed q2pro.menu
+  # embed worr.menu
   prog_embed = find_program('embed.py')
 
   q2pro_menu_c = custom_target(
-      'q2pro.menu.c',
-      output : 'q2pro.menu.c',
-      input : 'src/client/ui/q2pro.menu',
+      'worr.menu.c',
+      output : 'worr.menu.c',
+      input : 'src/client/ui/worr.menu',
       command : [prog_embed, '@INPUT@', '@OUTPUT@', 'res_q2pro_menu'],
   )
   client_src += q2pro_menu_c
@@ -633,7 +633,7 @@ if get_option('game-abi-hack').require(x86 and cc.get_id() == 'gcc' and cc.has_a
   engine_args += '-mstackrealign'
 endif
 
-executable('q2repro', common_src, client_src, refresh_src,
+executable('worr', common_src, client_src, refresh_src,
   dependencies:          common_deps + client_deps,
   include_directories:   ['inc', 'q2proto/inc'],
   gnu_symbol_visibility: 'hidden',
@@ -644,7 +644,7 @@ executable('q2repro', common_src, client_src, refresh_src,
   install_dir:           bindir,
 )
 
-executable('q2reproded', common_src, server_src,
+executable('worr.ded', common_src, server_src,
   dependencies:          common_deps + server_deps,
   include_directories:   ['inc', 'q2proto/inc'],
   gnu_symbol_visibility: 'hidden',
